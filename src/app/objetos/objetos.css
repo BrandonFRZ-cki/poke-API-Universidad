@@ -66,15 +66,58 @@ button:disabled {
   border-radius: 8px;
 }
 
-.resultado img {
-  width: 64px;
-  height: 64px;
+/* Cuadrícula de 3 columnas: 6 objetos por página = 2 filas */
+.cuadricula {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.item {
+  min-height: 48px;
+  padding: 6px;
+  border: 2px solid #2198b6;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #1d4ed8;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.item.seleccionado {
+  background: #2198b6;
+  color: #ffffff;
+}
+
+.paginacion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+/* Ficha ampliada del objeto seleccionado */
+.detalle {
+  margin-top: 16px;
+  padding: 16px;
+  background: #ffffff;
+  border: 2px solid #2198b6;
+  border-radius: 12px;
+}
+
+.detalle img {
+  width: 96px;
+  height: 96px;
   image-rendering: pixelated;
 }
 
 .nombre {
   margin: 8px 0 4px;
   color: #1d4ed8;
+  font-size: 20px;
 }
 
 .datos {
@@ -84,41 +127,8 @@ button:disabled {
 }
 
 .descripcion {
+  margin-top: 10px;
   font-style: italic;
   color: #4b5563;
-  font-size: 14px;
-}
-
-.subtitulo {
-  margin: 16px 0 8px;
-  color: #2198b6;
-  text-align: left;
-}
-
-.lista {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 6px;
-}
-
-.item {
-  padding: 4px 8px;
-  border: 1px solid #2198b6;
-  border-radius: 999px;
-  background: #ffffff;
-  color: #1d4ed8;
-  text-transform: capitalize;
-  cursor: pointer;
-}
-
-.paginacion {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 12px;
   font-size: 14px;
 }

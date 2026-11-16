@@ -1,5 +1,5 @@
 <section class="tarjeta">
-  <h2 class="titulo">Objetos</h2>
+  <h2 class="titulo">Tienda de objetos</h2>
 
   <div class="buscador">
     <input #campo type="text" placeholder="Ej: potion, master-ball" (keyup.enter)="buscar(campo.value)" />
@@ -7,7 +7,7 @@
   </div>
 
   <button type="button" class="explorar" (click)="cargarLista(0)" [disabled]="cargando()">
-    Explorar objetos
+    Explorar la tienda
   </button>
 
   @if (cargando()) {
@@ -18,28 +18,20 @@
     <p class="error">{{ mensaje }}</p>
   }
 
-  @if (objeto(); as o) {
-    <div class="resultado">
-      @if (o.imagen) {
-        <img [src]="o.imagen" [alt]="o.nombreEs" />
-      }
-      <h3 class="nombre">{{ o.nombreEs }}</h3>
-      <p class="datos">Categoría: {{ formatear(o.categoria) }} · Precio: ${{ o.costo }}</p>
-      <p class="descripcion">{{ o.efecto }}</p>
-    </div>
-  }
-
   @if (lista().length) {
-    <h4 class="subtitulo">Lista de objetos ({{ total() }})</h4>
-    <ul class="lista">
+    <div class="cuadricula">
       @for (nombre of lista(); track nombre) {
-        <li>
-          <button type="button" class="item" [disabled]="cargando()" (click)="buscar(nombre)">
-            {{ formatear(nombre) }}
-          </button>
-        </li>
+        <button
+          type="button"
+          class="item"
+          [class.seleccionado]="nombre === objeto()?.nombre"
+          [disabled]="cargando()"
+          (click)="buscar(nombre)"
+        >
+          {{ formatear(nombre) }}
+        </button>
       }
-    </ul>
+    </div>
 
     <div class="paginacion">
       <button type="button" (click)="cargarLista(pagina() - 1)" [disabled]="cargando() || pagina() === 0">
@@ -53,6 +45,18 @@
       >
         Siguiente
       </button>
+    </div>
+  }
+
+  @if (objeto(); as o) {
+    <div class="detalle">
+      @if (o.imagen) {
+        <img [src]="o.imagen" [alt]="o.nombreEs" />
+      }
+      <h3 class="nombre">{{ o.nombreEs }}</h3>
+      <p class="datos">Categoría: {{ formatear(o.categoria) }}</p>
+      <p class="datos">Precio: ${{ o.costo }}</p>
+      <p class="descripcion">{{ o.efecto }}</p>
     </div>
   }
 </section>

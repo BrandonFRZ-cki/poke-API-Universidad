@@ -4,7 +4,9 @@ Aplicación web interactiva desarrollada con Angular 22 para la Práctica 02.1 d
 
 **Propósito:** buscar Pokémon por nombre o número, consultar su información general y su cadena evolutiva, y explorar objetos (pociones, Poké Balls, etc.) desde la misma interfaz.
 
-**Sitio desplegado:** `https://<proyecto>.vercel.app` (completar después de desplegar en Vercel)
+**Sitio desplegado:** https://poke-api-universidad.vercel.app
+
+**Repositorio:** https://github.com/BrandonFRZ-cki/poke-API-Universidad
 
 ## Funcionalidades
 
@@ -16,8 +18,8 @@ Aplicación web interactiva desarrollada con Angular 22 para la Práctica 02.1 d
 - Cadena evolutiva: al pulsar una etapa se carga ese Pokémon.
 - Mensajes de carga, error de conexión y Pokémon no encontrado.
 - Si se hacen varias búsquedas seguidas, solo se muestra la última.
-- Sección **Objetos**: buscar un objeto por nombre (ej. `potion`, `master-ball`) con su imagen, categoría, precio y efecto.
-- Explorar la lista de objetos por páginas de 20, y pulsar cualquiera para ver su ficha.
+- Sección **Tienda de objetos**: buscar un objeto por nombre (ej. `potion`, `master-ball`) con su imagen, categoría, precio y efecto.
+- Explorar la tienda de 6 en 6 objetos; al seleccionar uno se muestra su ficha ampliada.
 
 ## Endpoints de PokéAPI utilizados
 

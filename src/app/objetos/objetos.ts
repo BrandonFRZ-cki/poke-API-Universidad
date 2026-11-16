@@ -2,7 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { ObjetosService } from '../services/objetos';
 import { ObjetoDetalle } from '../models/objeto';
 
-const TAMANO_PAGINA = 20;
+const TAMANO_PAGINA = 6;
 
 @Component({
   selector: 'app-objetos',
