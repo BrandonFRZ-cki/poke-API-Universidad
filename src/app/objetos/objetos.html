@@ -1,0 +1,58 @@
+<section class="tarjeta">
+  <h2 class="titulo">Objetos</h2>
+
+  <div class="buscador">
+    <input #campo type="text" placeholder="Ej: potion, master-ball" (keyup.enter)="buscar(campo.value)" />
+    <button type="button" (click)="buscar(campo.value)" [disabled]="cargando()">Buscar</button>
+  </div>
+
+  <button type="button" class="explorar" (click)="cargarLista(0)" [disabled]="cargando()">
+    Explorar objetos
+  </button>
+
+  @if (cargando()) {
+    <p class="mensaje">Buscando...</p>
+  }
+
+  @if (error(); as mensaje) {
+    <p class="error">{{ mensaje }}</p>
+  }
+
+  @if (objeto(); as o) {
+    <div class="resultado">
+      @if (o.imagen) {
+        <img [src]="o.imagen" [alt]="o.nombreEs" />
+      }
+      <h3 class="nombre">{{ o.nombreEs }}</h3>
+      <p class="datos">Categoría: {{ formatear(o.categoria) }} · Precio: ${{ o.costo }}</p>
+      <p class="descripcion">{{ o.efecto }}</p>
+    </div>
+  }
+
+  @if (lista().length) {
+    <h4 class="subtitulo">Lista de objetos ({{ total() }})</h4>
+    <ul class="lista">
+      @for (nombre of lista(); track nombre) {
+        <li>
+          <button type="button" class="item" [disabled]="cargando()" (click)="buscar(nombre)">
+            {{ formatear(nombre) }}
+          </button>
+        </li>
+      }
+    </ul>
+
+    <div class="paginacion">
+      <button type="button" (click)="cargarLista(pagina() - 1)" [disabled]="cargando() || pagina() === 0">
+        Anterior
+      </button>
+      <span>Página {{ pagina() + 1 }} de {{ paginas() }}</span>
+      <button
+        type="button"
+        (click)="cargarLista(pagina() + 1)"
+        [disabled]="cargando() || pagina() + 1 >= paginas()"
+      >
+        Siguiente
+      </button>
+    </div>
+  }
+</section>

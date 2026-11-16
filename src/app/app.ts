@@ -1,8 +1,9 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { MiPokemon } from './mi-pokemon/mi-pokemon';
+import { Objetos } from './objetos/objetos';
 
 @Component({
-  imports: [RouterOutlet],
+  imports: [MiPokemon, Objetos],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',

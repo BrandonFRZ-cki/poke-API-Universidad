@@ -1,0 +1,24 @@
+<section class="tarjeta">
+  <div class="cabecera">
+    <div>
+      <h2 class="nombre">{{ nombre }}</h2>
+      <span class="nivel">Nivel {{ nivel }}</span>
+    </div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-titulo">
+      <span>Energía</span>
+      <span class="energia">{{ energia }} / 100</span>
+    </div>
+  </div>
+
+  <p class="mensaje">{{ mensaje }}</p>
+
+  <div class="acciones">
+    <button type="button" class="entrenar" (click)="entrenar()">Entrenar</button>
+    <button type="button" class="descansar" (click)="descansar()">Descansar</button>
+    <button type="button" class="saludar" (click)="saludar()">Saludar</button>
+    <button type="button" class="reiniciar" (click)="reiniciar()">Reiniciar</button>
+  </div>
+</section>

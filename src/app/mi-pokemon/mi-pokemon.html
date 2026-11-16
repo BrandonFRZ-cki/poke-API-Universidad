@@ -1,0 +1,67 @@
+<section class="tarjeta">
+  <h2 class="titulo">Pokédex</h2>
+
+  <div class="buscador">
+    <input #campo type="text" placeholder="Nombre o número" (keyup.enter)="buscar(campo.value)" />
+    <button type="button" (click)="buscar(campo.value)" [disabled]="cargando()">Buscar</button>
+  </div>
+
+  <button type="button" class="aleatorio" (click)="aleatorio()" [disabled]="cargando()">
+    Pokémon aleatorio
+  </button>
+
+  @if (cargando()) {
+    <p class="mensaje">Buscando...</p>
+  }
+
+  @if (error(); as mensaje) {
+    <p class="error">{{ mensaje }}</p>
+  }
+
+  @if (pokemon(); as p) {
+    <div class="resultado">
+      @if (p.imagen) {
+        <img [src]="p.imagen" [alt]="p.nombre" />
+      } @else {
+        <p class="mensaje">Sin imagen disponible</p>
+      }
+
+      <h3 class="nombre">{{ p.nombre }} <span class="numero">#{{ p.id }}</span></h3>
+      <p class="tipos">Tipos: {{ p.tipos.join(', ') }}</p>
+      <p class="datos">Altura: {{ p.altura }} m · Peso: {{ p.peso }} kg</p>
+      <p class="datos">Habilidades: {{ p.habilidades.join(', ') }}</p>
+
+      @if (especie(); as e) {
+        <p class="descripcion">{{ e.descripcion }}</p>
+      }
+
+      <h4 class="subtitulo">Estadísticas base</h4>
+      @for (s of p.estadisticas; track s.nombre) {
+        <div class="stat">
+          <span class="stat-nombre">{{ s.nombre }}</span>
+          <div class="barra"><div class="relleno" [style.width.%]="(s.valor / 255) * 100"></div></div>
+          <span class="stat-valor">{{ s.valor }}</span>
+        </div>
+      }
+
+      <h4 class="subtitulo">Cadena evolutiva</h4>
+      @if (etapas().length) {
+        @for (etapa of etapas(); track $index) {
+          <div class="etapa">
+            @for (nombre of etapa; track nombre) {
+              <button
+                type="button"
+                class="evo"
+                [class.actual]="nombre === p.nombre"
+                [disabled]="cargando()"
+                (click)="buscar(nombre)"
+              >{{ nombre }}</button>
+            }
+          </div>
+        }
+      } @else {
+        <p class="mensaje">Sin datos de evolución.</p>
+      }
+    </div>
+  }
+</section>

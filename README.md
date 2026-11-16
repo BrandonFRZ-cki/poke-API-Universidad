@@ -1,59 +1,69 @@
-# PokeAPI
+# Pokédex con Angular y PokéAPI
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.6.
+Aplicación web interactiva desarrollada con Angular 22 para la Práctica 02.1 de *Programación y Plataformas Web*.
 
-## Development server
+**Propósito:** buscar Pokémon por nombre o número, consultar su información general y su cadena evolutiva, y explorar objetos (pociones, Poké Balls, etc.) desde la misma interfaz.
 
-To start a local development server, run:
+**Sitio desplegado:** `https://<proyecto>.vercel.app` (completar después de desplegar en Vercel)
 
-```bash
-ng serve
+## Funcionalidades
+
+- Búsqueda por nombre o número con la tecla Enter o con el botón *Buscar*.
+- Botón *Pokémon aleatorio* que consulta un Pokémon entre los 1025 disponibles.
+- Ficha con imagen oficial, número, tipos, altura, peso y habilidades.
+- Descripción de la especie en español (con respaldo en inglés).
+- Barras de estadísticas base.
+- Cadena evolutiva: al pulsar una etapa se carga ese Pokémon.
+- Mensajes de carga, error de conexión y Pokémon no encontrado.
+- Si se hacen varias búsquedas seguidas, solo se muestra la última.
+- Sección **Objetos**: buscar un objeto por nombre (ej. `potion`, `master-ball`) con su imagen, categoría, precio y efecto.
+- Explorar la lista de objetos por páginas de 20, y pulsar cualquiera para ver su ficha.
+
+## Endpoints de PokéAPI utilizados
+
+| Endpoint | Uso en la aplicación |
+|---|---|
+| `GET /api/v2/pokemon/{nombre o id}` | Imagen, tipos, altura, peso, habilidades, estadísticas y URL de la especie. |
+| `GET /api/v2/pokemon-species/{id}` (URL entregada por `/pokemon`) | Descripción en español y URL de la cadena evolutiva. |
+| `GET /api/v2/evolution-chain/{id}` (URL entregada por la especie) | Árbol de evoluciones, mostrado como botones navegables. |
+| `GET /api/v2/item/{nombre o id}` | Objeto buscado: imagen, categoría, precio y efecto. |
+| `GET /api/v2/item?offset=&limit=` | Lista paginada de objetos para explorar. |
+
+La aplicación no tiene backend ni base de datos: todas las consultas se hacen desde el navegador con `HttpClient`.
+
+## Estructura principal
+
+```
+src/app/
+├── models/pokemon.ts     # Interfaces de Pokémon (PokemonDetalle, Especie, NodoEvolucion)
+├── models/objeto.ts      # Interfaz de objeto (ObjetoDetalle)
+├── services/pokemon.ts   # PokeApiService: endpoints de /pokemon, /pokemon-species y /evolution-chain
+├── services/objetos.ts   # ObjetosService: endpoints de /item
+├── mi-pokemon/           # Componente Pokédex (búsqueda, ficha, evoluciones)
+└── objetos/              # Componente Objetos (búsqueda y lista paginada)
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Instalación y ejecución local
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Requisitos: Node.js y npm.
 
 ```bash
-ng generate component component-name
+npm install
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Abrir `http://localhost:4200/` en el navegador.
+
+Otros comandos:
 
 ```bash
-ng generate --help
+npm run build   # compila la aplicación
+npm test        # ejecuta las pruebas con Vitest
 ```
 
-## Building
+## Despliegue en Vercel
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. Subir el repositorio a GitHub.
+2. En Vercel, elegir *Add New → Project* e importar el repositorio.
+3. Configurar el proyecto como Angular, con el comando de compilación `npm run build` y el directorio de salida indicado en `angular.json`.
+4. Verificar que las búsquedas funcionen desde la URL pública.
