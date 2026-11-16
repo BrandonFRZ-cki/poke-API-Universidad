@@ -1,67 +1,103 @@
-<section class="tarjeta">
-  <h2 class="titulo">Pokédex</h2>
-
-  <div class="buscador">
-    <input #campo type="text" placeholder="Nombre o número" (keyup.enter)="buscar(campo.value)" />
-    <button type="button" (click)="buscar(campo.value)" [disabled]="cargando()">Buscar</button>
+<section class="pokedex">
+  <div class="cabecera">
+    <div class="lente"><div class="reflejo"></div></div>
+    <div class="luces">
+      <span class="luz roja"></span>
+      <span class="luz amarilla"></span>
+      <span class="luz verde"></span>
+    </div>
   </div>
 
-  <button type="button" class="aleatorio" (click)="aleatorio()" [disabled]="cargando()">
-    Pokémon aleatorio
-  </button>
-
-  @if (cargando()) {
-    <p class="mensaje">Buscando...</p>
-  }
-
-  @if (error(); as mensaje) {
-    <p class="error">{{ mensaje }}</p>
-  }
-
-  @if (pokemon(); as p) {
-    <div class="resultado">
-      @if (p.imagen) {
-        <img [src]="p.imagen" [alt]="p.nombre" />
-      } @else {
-        <p class="mensaje">Sin imagen disponible</p>
+  <div class="pantalla-marco">
+    <div class="pantalla">
+      @if (cargando()) {
+        <p class="texto parpadea">BUSCANDO...</p>
       }
 
-      <h3 class="nombre">{{ p.nombre }} <span class="numero">#{{ p.id }}</span></h3>
-      <p class="tipos">Tipos: {{ p.tipos.join(', ') }}</p>
-      <p class="datos">Altura: {{ p.altura }} m · Peso: {{ p.peso }} kg</p>
-      <p class="datos">Habilidades: {{ p.habilidades.join(', ') }}</p>
-
-      @if (especie(); as e) {
-        <p class="descripcion">{{ e.descripcion }}</p>
+      @if (!cargando() && error(); as mensaje) {
+        <p class="texto alerta">{{ mensaje }}</p>
       }
 
-      <h4 class="subtitulo">Estadísticas base</h4>
-      @for (s of p.estadisticas; track s.nombre) {
-        <div class="stat">
-          <span class="stat-nombre">{{ s.nombre }}</span>
-          <div class="barra"><div class="relleno" [style.width.%]="(s.valor / 255) * 100"></div></div>
-          <span class="stat-valor">{{ s.valor }}</span>
-        </div>
+      @if (!cargando() && !error() && !pokemon()) {
+        <p class="texto">POKÉDEX LISTA.<br />INTRODUCE UN NOMBRE O NÚMERO.</p>
       }
 
-      <h4 class="subtitulo">Cadena evolutiva</h4>
-      @if (etapas().length) {
-        @for (etapa of etapas(); track $index) {
-          <div class="etapa">
-            @for (nombre of etapa; track nombre) {
-              <button
-                type="button"
-                class="evo"
-                [class.actual]="nombre === p.nombre"
-                [disabled]="cargando()"
-                (click)="buscar(nombre)"
-              >{{ nombre }}</button>
+      @if (!cargando() && pokemon(); as p) {
+        <div class="ficha">
+          <div class="fila-superior">
+            <span>Nº {{ p.id }}</span>
+            <span class="nombre">{{ p.nombre }}</span>
+          </div>
+
+          <div class="imagen-marco">
+            @if (p.imagen) {
+              <img [src]="p.imagen" [alt]="p.nombre" />
+            } @else {
+              <span class="texto">SIN IMAGEN</span>
             }
           </div>
-        }
-      } @else {
-        <p class="mensaje">Sin datos de evolución.</p>
+
+          <div class="tipos">
+            @for (tipo of p.tipos; track tipo) {
+              <span class="tipo">{{ tipo }}</span>
+            }
+          </div>
+
+          <p class="dato">ALTURA {{ p.altura }} M · PESO {{ p.peso }} KG</p>
+          <p class="dato">HABILIDADES: {{ p.habilidades.join(', ') }}</p>
+
+          @if (especie(); as e) {
+            <p class="descripcion">{{ e.descripcion }}</p>
+          }
+
+          <p class="subtitulo">ESTADÍSTICAS</p>
+          @for (s of p.estadisticas; track s.nombre) {
+            <div class="stat">
+              <span>{{ s.nombre }}</span>
+              <div class="barra"><div class="relleno" [style.width.%]="(s.valor / 255) * 100"></div></div>
+              <span>{{ s.valor }}</span>
+            </div>
+          }
+
+          <p class="subtitulo">EVOLUCIÓN</p>
+          @if (etapas().length) {
+            <div class="cadena">
+              @for (etapa of etapas(); track $index) {
+                @if ($index > 0) {
+                  <span class="flecha">→</span>
+                }
+                <div class="etapa">
+                  @for (nombre of etapa; track nombre) {
+                    <button
+                      type="button"
+                      class="evo"
+                      [class.actual]="nombre === p.nombre"
+                      [disabled]="cargando()"
+                      (click)="buscar(nombre)"
+                    >{{ nombre }}</button>
+                  }
+                </div>
+              }
+            </div>
+          } @else {
+            <p class="descripcion">Sin datos de evolución.</p>
+          }
+        </div>
       }
     </div>
-  }
+  </div>
+
+  <div class="teclado">
+    <div class="busqueda">
+      <input #campo type="text" placeholder="NOMBRE O Nº" (keyup.enter)="buscar(campo.value)" />
+      <button type="button" class="btn-buscar" (click)="buscar(campo.value)" [disabled]="cargando()">
+        BUSCAR
+      </button>
+    </div>
+    <button type="button" class="btn-azar" (click)="aleatorio()" [disabled]="cargando()">
+      AL AZAR
+    </button>
+  </div>
+
+  <div class="rejilla"></div>
 </section>

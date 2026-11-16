@@ -21,6 +21,11 @@ interface ListaApi {
   results: { name: string; url: string }[];
 }
 
+/** Precio simulado en "Brandon dólares": número al azar entre 10 y 500, generado cada vez que se carga el objeto */
+function precioAleatorio(): number {
+  return Math.floor(Math.random() * 491) + 10;
+}
+
 @Injectable({ providedIn: 'root' })
 export class ObjetosService {
   private http = inject(HttpClient);
@@ -39,7 +44,7 @@ export class ObjetosService {
       nombre: data.name,
       nombreEs: data.names.find((n) => n.language.name === 'es')?.name ?? data.name,
       imagen: data.sprites.default,
-      costo: data.cost,
+      costo: precioAleatorio(),
       categoria: data.category.name,
       efecto:
         data.effect_entries.find((e) => e.language.name === 'en')?.short_effect ??

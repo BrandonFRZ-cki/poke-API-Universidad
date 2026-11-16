@@ -1,17 +1,21 @@
+/* Pestaña lateral de la tienda: mismo estilo rojo y azul de la Pokédex */
+
 .tarjeta {
-  width: 340px;
-  padding: 20px;
-  background: #e6e6e5;
-  border: 2px solid #2198b6;
-  border-radius: 12px;
-  font-family: sans-serif;
+  width: 320px;
+  padding: 18px;
+  background: radial-gradient(circle at 30% 20%, #ff5a5a, #d7261e 55%, #9e1410);
+  border-radius: 20px;
+  box-shadow: inset -6px -8px 0 rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  font-family: 'Courier New', Courier, monospace;
   text-align: center;
-  box-shadow: 0 100px 50px rgba(0, 0, 0, 0.1);
 }
 
 .titulo {
-  margin: 0 0 16px;
-  color: #2198b6;
+  margin: 0 0 14px;
+  color: #ffd23f;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .buscador {
@@ -24,26 +28,45 @@
   flex: 1;
   min-width: 0;
   padding: 8px;
-  border: 1px solid #9ca3af;
+  border: 2px solid #111111;
   border-radius: 8px;
+  background: #0e4a8a;
+  color: #d9fbff;
+  font-family: inherit;
+  text-transform: uppercase;
+}
+
+.buscador input::placeholder {
+  color: #7fb8e0;
 }
 
 .buscador button,
 .explorar,
 .paginacion button {
   padding: 8px 12px;
-  border: none;
-  border-radius: 8px;
-  background: #2198b6;
-  color: #ffffff;
+  border: 3px solid #111111;
+  border-radius: 10px;
+  background: #ffd23f;
+  color: #222222;
+  font-family: inherit;
   font-weight: bold;
   cursor: pointer;
+  box-shadow: 0 3px 0 #8a6d00;
+}
+
+.buscador button:active,
+.explorar:active,
+.paginacion button:active {
+  transform: translateY(2px);
+  box-shadow: none;
 }
 
 .explorar {
   width: 100%;
   margin-bottom: 12px;
-  background: #f59e0b;
+  background: #2aa7e0;
+  color: #ffffff;
+  box-shadow: 0 3px 0 #0b4f8a;
 }
 
 button:disabled {
@@ -54,8 +77,8 @@ button:disabled {
 .mensaje {
   min-height: 24px;
   padding: 8px;
-  background: #ffffff;
-  color: #374151;
+  background: #0e4a8a;
+  color: #d9fbff;
   border-radius: 8px;
 }
 
@@ -76,19 +99,20 @@ button:disabled {
 .item {
   min-height: 48px;
   padding: 6px;
-  border: 2px solid #2198b6;
+  border: 2px solid #7fd8ff;
   border-radius: 10px;
-  background: #ffffff;
-  color: #1d4ed8;
-  font-size: 13px;
+  background: #0a2c52;
+  color: #d9fbff;
+  font-family: inherit;
+  font-size: 12px;
   font-weight: bold;
   text-transform: capitalize;
   cursor: pointer;
 }
 
 .item.seleccionado {
-  background: #2198b6;
-  color: #ffffff;
+  background: #7fd8ff;
+  color: #0a2c52;
 }
 
 .paginacion {
@@ -96,39 +120,44 @@ button:disabled {
   align-items: center;
   justify-content: space-between;
   margin-top: 12px;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 /* Ficha ampliada del objeto seleccionado */
 .detalle {
   margin-top: 16px;
-  padding: 16px;
-  background: #ffffff;
-  border: 2px solid #2198b6;
+  padding: 14px;
+  background: radial-gradient(circle at 50% 30%, #1f7fd0, #0e4a8a 70%);
+  border: 3px solid #111111;
   border-radius: 12px;
+  color: #d9fbff;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .detalle img {
   width: 96px;
   height: 96px;
   image-rendering: pixelated;
+  filter: drop-shadow(0 0 6px rgba(160, 240, 255, 0.6));
 }
 
 .nombre {
   margin: 8px 0 4px;
-  color: #1d4ed8;
-  font-size: 20px;
+  color: #ffffff;
+  font-size: 18px;
+  text-transform: uppercase;
 }
 
 .datos {
   margin: 4px 0;
-  color: #374151;
-  font-size: 14px;
+  color: #bfeeff;
+  font-size: 13px;
+  text-transform: uppercase;
 }
 
 .descripcion {
   margin-top: 10px;
-  font-style: italic;
-  color: #4b5563;
-  font-size: 14px;
+  color: #bfeeff;
+  font-size: 13px;
+  line-height: 1.35;
 }
